@@ -8,6 +8,8 @@
 
 <div>
     <form th:method="POST" th:action="@{/admin}" th:object="${newUser}">
+        <input type="hidden" th:field="*{id}" id="id">
+
         <label for="name">Enter name: </label>
         <input type="text" th:field="*{name}" id="name"/>
         <br/>
@@ -28,16 +30,11 @@
         <input type="text" th:field="*{password}" id="password"/>
         <br/>
 
-        <p>
-            <label>Select roles:
-                <input type="checkbox" name="setOfRoles"
-                       th:each="role : ${allRoles}"
-                       th:text="${role.getName().substring(5)}"
-                       th:value="${role.getName()}"
-                       th:field="*{roles}"
-                />
-            </label>
-        </p>
+        <div th:each="role : ${allRoles}">
+            <input type="checkbox" name="setOfRoles"
+                   th:value="${role.name}"
+                   th:text="${role.name}"/>
+        </div>
 
         <input type="submit" value="Create"/>
     </form>

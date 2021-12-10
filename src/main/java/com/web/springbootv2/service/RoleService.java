@@ -16,5 +16,7 @@ public interface RoleService {
 
     List<Role> getAllRoles();
 
+    Set<Role> checkRoles(String[] setOfRoles);
+
     Set<Role> getSetOfRoles(String[] roles);
 }

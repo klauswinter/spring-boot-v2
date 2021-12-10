@@ -14,7 +14,7 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Column
+    @Column(unique = true)
     private String name;
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     private Set<User> users;
@@ -65,7 +65,8 @@ public class Role implements GrantedAuthority {
         if (this == o) return true;
         if (!(o instanceof Role)) return false;
         Role role = (Role) o;
-        return Objects.equals(getId(), role.getId()) && Objects.equals(getName(), role.getName()) && Objects.equals(getUsers(), role.getUsers());
+        return Objects.equals(getId(), role.getId()) && Objects.equals(getName(),
+                role.getName()) && Objects.equals(getUsers(), role.getUsers());
     }
 
     @Override

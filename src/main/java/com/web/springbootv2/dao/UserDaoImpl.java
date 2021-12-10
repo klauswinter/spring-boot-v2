@@ -18,57 +18,14 @@ public class UserDaoImpl implements UserDao {
     @PersistenceContext
     private EntityManager em;
 
-    private RoleServiceImpl roleService;
-
-    @Autowired
-    public void setRoleService(RoleServiceImpl roleService) {
-        this.roleService = roleService;
-    }
-
     @Override
     public void saveUser(User user) {
-        List<Role> currentRoles = roleService.getAllRoles();
-        Set<Role> userRoles = user.getRoles();
-        Set<Role> rolesForNewUser = new HashSet<>();
-
-        for (Role currentRole : currentRoles) {
-            for (Role userRole : userRoles) {
-                if (userRole.getName().equals(currentRole.getName())) {
-                    rolesForNewUser.add(roleService.getRoleById(currentRole.getId()));
-                }
-            }
-        }
-
-        user.setRoles(rolesForNewUser);
         em.persist(user);
     }
 
     @Override
     public void updateUser(Long id, User updatedUser) {
-        List<Role> currentRoles = roleService.getAllRoles();
-        Set<Role> userRoles = updatedUser.getRoles();
-        Set<Role> rolesForNewUser = new HashSet<>();
-
-        for (Role currentRole : currentRoles) {
-            for (Role userRole : userRoles) {
-                if (userRole.getName().equals(currentRole.getName())) {
-                    rolesForNewUser.add(roleService.getRoleById(currentRole.getId()));
-                }
-            }
-        }
-
-
-        User userToBeUpdated = getUserById(id);
-
-        userToBeUpdated.setName(updatedUser.getName());
-        userToBeUpdated.setLastName(updatedUser.getLastName());
-        userToBeUpdated.setAge(updatedUser.getAge());
-        userToBeUpdated.setEmail(updatedUser.getEmail());
-        userToBeUpdated.setRoles(rolesForNewUser);
-        userToBeUpdated.setPassword(updatedUser.getPassword());
-
-        em.merge(userToBeUpdated);
-
+        em.merge(updatedUser);
     }
 
     @Override

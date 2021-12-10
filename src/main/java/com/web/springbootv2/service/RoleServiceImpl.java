@@ -45,12 +45,27 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional
+    public Set<Role> checkRoles(String[] setOfRoles) {
+
+        Set<Role> roles = new HashSet<>();
+
+        if (setOfRoles != null) {
+            roles = getSetOfRoles(setOfRoles);
+        }
+
+        return roles;
+    }
+
+    @Override
+    @Transactional
     public Set<Role> getSetOfRoles(String[] roles) {
         Set<Role> rolesSet = new HashSet<>();
 
         for (String role : roles) {
             rolesSet.add(roleDao.getRoleByName(role));
         }
+
         return rolesSet;
     }
 }
