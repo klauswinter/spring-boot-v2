@@ -7,7 +7,7 @@
 <body>
 
 <div>
-    <form th:method="PATCH" th:action="@{/admin/{id}(id=${existingUser.getId()})}" th:object="${existingUser}">
+    <form th:method="PATCH" th:action="@{/admin}" th:object="${existingUser}">
         <input type="hidden" th:field="*{id}">
 
         <label for="name">Enter name: </label>

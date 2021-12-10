@@ -9,8 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 @Controller
@@ -68,15 +66,14 @@ public class AdminsController {
         return "admin/edit";
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping()
     public String updateUser(@ModelAttribute("existingUser") User user,
-                             @PathVariable("id") Long id,
                              @RequestParam String[] setOfRoles) {
 
         Set<Role> roles = roleService.checkRoles(setOfRoles);
         user.setRoles(roles);
 
-        userService.updateUser(id, user);
+        userService.updateUser(user);
 
         return "redirect:/admin";
     }

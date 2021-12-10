@@ -1,16 +1,11 @@
 package com.web.springbootv2.dao;
 
-import com.web.springbootv2.model.Role;
 import com.web.springbootv2.model.User;
-import com.web.springbootv2.service.RoleServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -24,7 +19,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void updateUser(Long id, User updatedUser) {
+    public void updateUser(User updatedUser) {
         em.merge(updatedUser);
     }
 
